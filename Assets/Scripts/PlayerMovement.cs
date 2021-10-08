@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     [Header("Parameters")]
     [SerializeField] private float _jumpForce = 7.0f;
     [SerializeField] private float _moveSpeed = 10f;
+    [SerializeField] private float _moveSpeedRun = 10f;
+
     [SerializeField] private float _gravityFactor = 1f;
     [SerializeField] private float _turnSmoothTime = 0.1f;
 
@@ -15,7 +17,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private Animator _animator;
-    [SerializeField] private Transform _camera;
+    [SerializeField] private CinemachineFreeLook _cameraVitual;
+    [SerializeField] private Transform _cameraBrain;
+
 
 
     private bool _rolling = false;
@@ -50,21 +54,31 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         float directionAngle = 0f; 
         Vector3 direction = new Vector3(horizontalInput,0,verticalInput).normalized;
-        if (_characterController.isGrounded && !_rolling)
+        if (_characterController.isGrounded && !_rolling && !_jumping)
         {
             if(direction.magnitude >= 0.1f && !_jumping)
             {
-                directionAngle = Mathf.Atan2(direction.x,direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
+                directionAngle = Mathf.Atan2(direction.x,direction.z) * Mathf.Rad2Deg + _cameraBrain.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y,directionAngle,ref _turnSmoothVelocity,_turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f,angle,0f);
                 _moveDirection = Quaternion.Euler(0f,directionAngle,0f) * Vector3.forward;
                 
             }
-            else if(!_jumping)
+            else
             {
                 _moveDirection = Vector3.zero;
             }
-            if (!_jumping && Input.GetButton("Jump"))
+            if (Input.GetButton("Fire3"))
+            {
+                _animator.SetBool("Running",true);
+                _moveSpeed = _moveSpeedRun;
+            }
+            else
+            {
+                _animator.SetBool("Running",false);
+                _moveSpeed = _moveSpeedOriginal;
+            }
+            if (Input.GetButton("Jump"))
             {
                 _animator.SetTrigger("Jump");
                 //_moveDirection.y = _jumpForce;

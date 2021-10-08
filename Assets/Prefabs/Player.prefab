@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 2505034134119187271}
   - component: {fileID: 7355334498804099826}
   - component: {fileID: 138237686635448613}
-  - component: {fileID: 6394897257069385044}
-  - component: {fileID: 5376704620231122314}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -30,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5826200212344006818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 4839204961656795446}
   m_Father: {fileID: 0}
@@ -48,9 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6593b7ca3ec147b4c9d16567e1f9de17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 7
-  _moveSpeed: 150
+  _jumpForce: 3
+  _moveSpeed: 2
+  _moveSpeedRun: 7
   _gravityFactor: 1
+  _turnSmoothTime: 0.1
+  _turnSmoothVelocity: 0.1
   _characterController: {fileID: 7355334498804099826}
   _animator: {fileID: 138237686635448613}
   _camera: {fileID: 0}
@@ -66,7 +67,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.63
-  m_Radius: 0.26
+  m_Radius: 0.47
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -91,34 +92,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6394897257069385044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5826200212344006818}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37a2e232db8fe9249a0b3d06ce0a8b6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0
-  rotationSpeed: 0
---- !u!136 &5376704620231122314
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5826200212344006818}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.19
-  m_Height: 1.6110582
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.8323035, z: 0}
 --- !u!1001 &4945786063338673885
 PrefabInstance:
   m_ObjectHideFlags: 0
