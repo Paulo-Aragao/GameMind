@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void MidJumping()
     {
-        //_moveDirection.y = _jumpForce;
+        _moveDirection.y = _jumpForce;
     }
     public void EndJumping()
     {
