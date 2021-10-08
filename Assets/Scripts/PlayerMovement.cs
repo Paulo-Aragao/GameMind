@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     private bool _rolling = false;
+    private bool _jumping = false;
+
     private float _moveSpeedOriginal;
     private float _moveSpeedRolling;
 
@@ -50,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput,0,verticalInput).normalized;
         if (_characterController.isGrounded && !_rolling)
         {
-            if(direction.magnitude >= 0.1f)
+            if(direction.magnitude >= 0.1f && !_jumping)
             {
                 directionAngle = Mathf.Atan2(direction.x,direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y,directionAngle,ref _turnSmoothVelocity,_turnSmoothTime);
@@ -58,14 +60,14 @@ public class PlayerMovement : MonoBehaviour
                 _moveDirection = Quaternion.Euler(0f,directionAngle,0f) * Vector3.forward;
                 
             }
-            else
+            else if(!_jumping)
             {
                 _moveDirection = Vector3.zero;
             }
-            if (Input.GetButton("Jump"))
+            if (!_jumping && Input.GetButton("Jump"))
             {
                 _animator.SetTrigger("Jump");
-                direction.y = _jumpForce;
+                //_moveDirection.y = _jumpForce;
             }
             else if (Input.GetButton("Fire1"))
             {
@@ -78,6 +80,20 @@ public class PlayerMovement : MonoBehaviour
         
     }
     #region Methods
+
+    public void StartJumping()
+    {
+        _jumping = true;
+    }
+    public void MidJumping()
+    {
+        //_moveDirection.y = _jumpForce;
+    }
+    public void EndJumping()
+    {
+        _animator.ResetTrigger("Jump");
+        _jumping = false;
+    }
     public void StartRolling()
     {
         _moveSpeed = _moveSpeedRolling;
