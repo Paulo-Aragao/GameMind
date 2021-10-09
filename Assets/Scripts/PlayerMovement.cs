@@ -20,11 +20,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CinemachineFreeLook _cameraVitual;
     [SerializeField] private Transform _cameraBrain;
 
-
-
-    private bool _rolling = false;
-    private bool _jumping = false;
-
     private float _moveSpeedOriginal;
     private float _moveSpeedRolling;
 
@@ -43,7 +38,8 @@ public class PlayerMovement : MonoBehaviour
     {
         _moveSpeedOriginal = _moveSpeed;
         _moveSpeedRolling = _moveSpeed *1.7f;
-        _rolling = false;
+        _animator.SetBool("MS_Rolling",false);
+        _animator.SetBool("MS_Jumping",false);
         _moveDirection = Vector3.zero;
         _lastLookDiretion = Vector3.up;
     }
@@ -54,10 +50,10 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         float directionAngle = 0f; 
         Vector3 direction = new Vector3(horizontalInput,0,verticalInput).normalized;
-        if (_characterController.isGrounded && !_rolling && !_jumping)
+        //Verificação de maquina de estados e se o player está no chão
+        if (_characterController.isGrounded && !_animator.GetBool("MS_Rolling") && !_animator.GetBool("MS_Jumping") )
         {
-            
-            if(direction.magnitude >= 0.1f && !_jumping)
+            if(direction.magnitude >= 0.1f && ! _animator.GetBool("MS_Jumping"))
             {
                 directionAngle = Mathf.Atan2(direction.x,direction.z) * Mathf.Rad2Deg + _cameraBrain.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y,directionAngle,ref _turnSmoothVelocity,_turnSmoothTime);
@@ -89,6 +85,10 @@ public class PlayerMovement : MonoBehaviour
                 _animator.SetTrigger("Roll");
             }
         }
+        if(_animator.GetBool("MS_Stumbling"))
+        {
+            _moveDirection = new Vector3(_moveDirection.x/2,_moveDirection.y,_moveDirection.z/2);
+        }
         _animator.SetFloat("MoveSpeed",Mathf.Abs(direction.x) + Mathf.Abs(direction.z));
         _moveDirection.y -= _GRAVITYFORCE*_gravityFactor * Time.deltaTime;
         _characterController.Move(_moveDirection *_moveSpeed* Time.deltaTime);
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void StartJumping()
     {
-        _jumping = true;
+        _animator.SetBool("MS_Jumping",true);
     }
     public void MidJumping()
     {
@@ -107,14 +107,14 @@ public class PlayerMovement : MonoBehaviour
     public void EndJumping()
     {
         _animator.ResetTrigger("Jump");
-        _jumping = false;
+        _animator.SetBool("MS_Jumping",false);
     }
     public void StartRolling()
     {
         _characterController.center =  _characterController.center/2;
         _characterController.height = 0f;
         _moveSpeed = _moveSpeedRolling;
-        _rolling = true;
+        _animator.SetBool("MS_Rolling",true);
         Debug.Log("start");
 
     }
@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         _characterController.center =  _characterController.center*2;
         _characterController.height = 1.63f;
         _moveSpeed = _moveSpeedOriginal;
-        _rolling = false;
+        _animator.SetBool("MS_Rolling",false);
         _animator.ResetTrigger("Roll");
         Debug.Log("End");
     }
