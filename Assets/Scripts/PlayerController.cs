@@ -32,7 +32,18 @@ public class PlayerController : MonoBehaviour
     public void EndStumbling()
     {
         _animator.SetBool("MS_Stumbling",false);
+        ResetAllTriggers();
     }
+    private void ResetAllTriggers()
+    {
+        foreach (var param in _animator.parameters)
+        {
+        if (param.type == AnimatorControllerParameterType.Trigger)
+        {
+        _animator.ResetTrigger(param.name);
+        }
+    }
+}
     private void Die()
     {
         GetComponent<PlayerMovement>().enabled = false;
