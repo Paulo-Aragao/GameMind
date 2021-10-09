@@ -56,19 +56,20 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput,0,verticalInput).normalized;
         if (_characterController.isGrounded && !_rolling && !_jumping)
         {
+            
             if(direction.magnitude >= 0.1f && !_jumping)
             {
                 directionAngle = Mathf.Atan2(direction.x,direction.z) * Mathf.Rad2Deg + _cameraBrain.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y,directionAngle,ref _turnSmoothVelocity,_turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f,angle,0f);
                 _moveDirection = Quaternion.Euler(0f,directionAngle,0f) * Vector3.forward;
-                
+                _animator.ResetTrigger("Roll");
             }
             else
             {
                 _moveDirection = Vector3.zero;
             }
-            if (Input.GetButton("Fire3"))
+            if (Input.GetButton("TriggerR2"))
             {
                 _animator.SetBool("Running",true);
                 _moveSpeed = _moveSpeedRun;
@@ -110,6 +111,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void StartRolling()
     {
+        _characterController.center =  _characterController.center/2;
+        _characterController.height = 0f;
         _moveSpeed = _moveSpeedRolling;
         _rolling = true;
         Debug.Log("start");
@@ -123,6 +126,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void EndRolling()
     {
+        _characterController.center =  _characterController.center*2;
+        _characterController.height = 1.63f;
         _moveSpeed = _moveSpeedOriginal;
         _rolling = false;
         _animator.ResetTrigger("Roll");

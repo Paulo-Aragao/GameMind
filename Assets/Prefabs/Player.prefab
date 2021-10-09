@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6593b7ca3ec147b4c9d16567e1f9de17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 3
+  _jumpForce: 2.5
   _moveSpeed: 2
   _moveSpeedRun: 7
   _gravityFactor: 1
@@ -54,7 +54,8 @@ MonoBehaviour:
   _turnSmoothVelocity: 0.1
   _characterController: {fileID: 7355334498804099826}
   _animator: {fileID: 138237686635448613}
-  _camera: {fileID: 0}
+  _cameraVitual: {fileID: 0}
+  _cameraBrain: {fileID: 0}
 --- !u!143 &7355334498804099826
 CharacterController:
   m_ObjectHideFlags: 0
@@ -67,7 +68,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.63
-  m_Radius: 0.47
+  m_Radius: 0.43
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
