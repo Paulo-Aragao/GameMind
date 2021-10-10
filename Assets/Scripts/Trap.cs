@@ -11,14 +11,12 @@ public class Trap : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("acertou");
             other.gameObject.GetComponent<PlayerController>().TakeDamage(_damage);
         }
     }
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("acertou");
             other.gameObject.GetComponent<PlayerController>().TakeDamage(_damage);
         }
     }

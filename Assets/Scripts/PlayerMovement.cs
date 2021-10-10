@@ -78,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 _animator.SetTrigger("Jump");
-                //_moveDirection.y = _jumpForce;
             }
             else if (Input.GetButton("Fire1"))
             {
@@ -95,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
     #region Methods
-
+    //animations phases
     public void StartJumping()
     {
         _animator.SetBool("MS_Jumping",true);

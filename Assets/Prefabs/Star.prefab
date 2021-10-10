@@ -4738,6 +4738,8 @@ GameObject:
   - component: {fileID: 8158552482509434055}
   - component: {fileID: 8158552482494276293}
   - component: {fileID: 8158552482494222889}
+  - component: {fileID: 2984574444793504814}
+  - component: {fileID: 7587618396699973367}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -9501,6 +9503,31 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!135 &2984574444793504814
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8158552482509621075}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45
+  m_Center: {x: 0, y: -1.019699e-16, z: -0.02280049}
+--- !u!114 &7587618396699973367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8158552482509621075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f147e351134fd44bbd7c5a7a22c19fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8158552482509681907
 GameObject:
   m_ObjectHideFlags: 0

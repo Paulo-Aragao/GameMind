@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 473298}
   - component: {fileID: 6039550872897182220}
   - component: {fileID: 7232877865740924941}
+  - component: {fileID: 5906476368676111612}
   m_Layer: 0
   m_Name: PortalGreenIdle
   m_TagString: Untagged
@@ -4765,6 +4766,19 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!65 &5906476368676111612
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138012}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.38582, y: 1.4423238, z: 2.4048247}
+  m_Center: {x: -0.048582613, y: -0.07106817, z: -0.006541729}
 --- !u!1 &140274
 GameObject:
   m_ObjectHideFlags: 0
